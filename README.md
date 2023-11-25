@@ -4,6 +4,11 @@
 
 https://symfony.com/doc/6.2/the-fast-track/en
 
+## Diferences:
+ - is using mysql instead of postgresql
+ - symfony CLI is not installed
+ - code is not deployed on platform.sh
+
 ## Used Commands in the tutorial - only the rare ones
 
 ### asks you for a plain password and returns to you a hash
