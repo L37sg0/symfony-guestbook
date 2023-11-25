@@ -4,7 +4,7 @@
 
 https://symfony.com/doc/6.2/the-fast-track/en
 
-## Diferences:
+## Differences:
  - is using mysql instead of postgresql
  - symfony CLI is not installed
  - code is not deployed on platform.sh
@@ -45,3 +45,14 @@ docker-compose exec app composer -d symfony-guestbook/ require symfony/workflow
 ```bash
 docker-compose exec app symfony-guestbook/bin/console workflow:dump comment | dot -Tpng -o ./symfony-guestbook/workflow.png
 ```
+
+### explicitly find workflow services from the dependency injection container
+```bash
+docker-compose exec app symfony-guestbook/bin/console debug:container workflow
+```
+```bash
+docker-compose exec app symfony-guestbook/bin/console debug:autowiring workflow
+```
+
+## Notes:
+ - workflows should be probably used with some additional checks.
