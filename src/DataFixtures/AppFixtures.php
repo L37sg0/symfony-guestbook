@@ -44,7 +44,7 @@ class AppFixtures extends Fixture
                 ->getPasswordHasher(Admin::class)
                 ->hash('admin')
             );
-        
+
         $manager->flush();
     }
 }
