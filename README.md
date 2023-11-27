@@ -100,3 +100,7 @@ curl -s -I -X PURGE -u admin:password http://localhost/admin/http-cache/conferen
 
 ## Notes:
  - workflows should be probably used with some additional checks.
+ - DO NOT forget to clean your cached views for the env you're working on when make changes on templates
+   ```bash
+   rm -rf var/cache/dev
+   ```
