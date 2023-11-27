@@ -33,7 +33,7 @@ class ConferenceController extends AbstractController
     ): Response {
         return $this->render('conference/index.html.twig', [
             'conferences' => $conferenceRepository->findAll(),
-        ]);
+        ])->setSharedMaxAge(3600); // Caches the homepage for an hour
     }
 
     #[Route('/conference/{slug}', name: 'conference')]
