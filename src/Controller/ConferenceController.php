@@ -36,6 +36,17 @@ class ConferenceController extends AbstractController
         ])->setSharedMaxAge(3600); // Caches the homepage for an hour
     }
 
+    /**
+     * Will return only a fragment which displays the conferences, so they could be cached
+     */
+    #[Route('/conference_header', name: 'conference_header')]
+    public function conferenceHeader(ConferenceRepository $conferenceRepository): Response
+    {
+        return $this->render('conference/header.html.twig', [
+            'conferences' => $conferenceRepository->findAll(),
+        ])->setSharedMaxAge(3600); // Cache the header fragment independently for an hour
+    }
+
     #[Route('/conference/{slug}', name: 'conference')]
     public function show(
         Request $request,
