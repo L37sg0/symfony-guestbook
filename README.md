@@ -54,5 +54,43 @@ docker-compose exec app symfony-guestbook/bin/console debug:container workflow
 docker-compose exec app symfony-guestbook/bin/console debug:autowiring workflow
 ```
 
+### check with curl if HTTP Cache Kernel is active
+```bash
+curl -s -I -X GET http://localhost
+```
+```bash
+# First request is a 'miss'
+HTTP/1.1 200 OK
+Server: nginx/1.23.4
+Content-Type: text/html; charset=UTF-8
+Content-Length: 68418
+Connection: keep-alive
+X-Powered-By: PHP/8.2.12
+Cache-Control: public, s-maxage=3600
+Date: Mon, 27 Nov 2023 12:01:37 GMT
+X-Debug-Token: cea4e1
+X-Debug-Token-Link: http://localhost/_profiler/cea4e1
+X-Robots-Tag: noindex
+X-Content-Digest: end88bc5ef519a8c5515eb16831d43377c
+Age: 0
+X-Symfony-Cache: GET /: miss, store
+
+# Second request is a 'fresh' and Age is also changed
+HTTP/1.1 200 OK
+Server: nginx/1.23.4
+Content-Type: text/html; charset=UTF-8
+Content-Length: 68418
+Connection: keep-alive
+X-Powered-By: PHP/8.2.12
+Cache-Control: public, s-maxage=3600
+date: Mon, 27 Nov 2023 12:01:37 GMT
+x-debug-token: cea4e1
+x-debug-token-link: http://localhost/_profiler/cea4e1
+x-robots-tag: noindex
+x-content-digest: end88bc5ef519a8c5515eb16831d43377c
+Age: 106
+X-Symfony-Cache: GET /: fresh
+```
+
 ## Notes:
  - workflows should be probably used with some additional checks.
