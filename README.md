@@ -92,5 +92,11 @@ Age: 106
 X-Symfony-Cache: GET /: fresh
 ```
 
+### purge cache using curl as per the new route defined
+```bash
+curl -s -I -X PURGE -u admin:password http://localhost/admin/http-cache/
+curl -s -I -X PURGE -u admin:password http://localhost/admin/http-cache/conference_header
+```
+
 ## Notes:
  - workflows should be probably used with some additional checks.
