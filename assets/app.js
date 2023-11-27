@@ -6,4 +6,15 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
+import './styles/app.scss';
+import '../node_modules/bootstrap';
+import bsCustomFileInput from 'bs-custom-file-input';
+
+// start the Stimulus application
+import '../node_modules/bootstrap';
+
+const $ = require('../node_modules/jquery');
+require('../node_modules/bootstrap');
+require('../node_modules/@popperjs/core');
+
+bsCustomFileInput.init();
