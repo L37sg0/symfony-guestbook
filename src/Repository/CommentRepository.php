@@ -29,7 +29,7 @@ class CommentRepository extends ServiceEntityRepository
     public function countOldRejected(): int
     {
         return $this->getOldRejectedQueryBuilder()
-            ->select('COUNT(c.id')
+            ->select('COUNT(c.id)')
             ->getQuery()
             ->getSingleScalarResult();
     }
@@ -50,7 +50,7 @@ class CommentRepository extends ServiceEntityRepository
             ->setParameters([
                 'state_rejected'    => 'rejected',
                 'state_spam'        => 'spam',
-                'date'              => new \DateTimeImmutable(-self::DAYS_BEFORE_REJECTED_REMOVAL . ' days'),
+                'date'              => new \DateTimeImmutable(- self::DAYS_BEFORE_REJECTED_REMOVAL . ' days'),
             ]);
     }
 
