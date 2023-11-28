@@ -3,6 +3,10 @@
 namespace App\Notification;
 
 use App\Entity\Comment;
+use Symfony\Component\Notifier\Bridge\Slack\Block\SlackDividerBlock;
+use Symfony\Component\Notifier\Bridge\Slack\Block\SlackSectionBlock;
+use Symfony\Component\Notifier\Bridge\Slack\SlackOptions;
+use Symfony\Component\Notifier\Message\ChatMessage;
 use Symfony\Component\Notifier\Message\EmailMessage;
 use Symfony\Component\Notifier\Notification\ChatNotificationInterface;
 use Symfony\Component\Notifier\Notification\EmailNotificationInterface;
@@ -10,7 +14,7 @@ use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\EmailRecipientInterface;
 use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
-class CommentReviewNotification extends Notification implements EmailNotificationInterface//, ChatNotificationInterface
+class CommentReviewNotification extends Notification implements EmailNotificationInterface, ChatNotificationInterface
 {
     public function __construct(
         private Comment $comment,
@@ -37,5 +41,30 @@ class CommentReviewNotification extends Notification implements EmailNotificatio
         $this->importance(Notification::IMPORTANCE_LOW);
 
         return ['email'];
+    }
+
+    public function asChatMessage(RecipientInterface $recipient, string $transport = null): ?ChatMessage
+    {
+        if ('slack' != $transport) {
+            return null;
+        }
+
+        $message = ChatMessage::fromNotification($this, $recipient, $transport);
+        $message->subject($this->getSubject());
+        $message->options((new SlackOptions())
+            ->iconEmoji('tada')
+            ->iconUrl('https://guestbook.example.com')
+            ->username('Guestbook')
+            ->block((new SlackSectionBlock())->text($this->getSubject()))
+            ->block(new SlackDividerBlock())
+            ->block((new SlackSectionBlock())
+            ->text(sprintf(
+                "%s (%s) says: %s",
+                $this->comment->getAuthor(),
+                $this->comment->getEmail(),
+                $this->comment->getText()
+            ))));
+
+        return $message;
     }
 }
