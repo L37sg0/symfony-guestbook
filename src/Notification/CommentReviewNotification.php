@@ -4,11 +4,13 @@ namespace App\Notification;
 
 use App\Entity\Comment;
 use Symfony\Component\Notifier\Message\EmailMessage;
+use Symfony\Component\Notifier\Notification\ChatNotificationInterface;
 use Symfony\Component\Notifier\Notification\EmailNotificationInterface;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\EmailRecipientInterface;
+use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
-class CommentReviewNotification extends Notification implements EmailNotificationInterface
+class CommentReviewNotification extends Notification implements EmailNotificationInterface//, ChatNotificationInterface
 {
     public function __construct(
         private Comment $comment,
@@ -24,5 +26,16 @@ class CommentReviewNotification extends Notification implements EmailNotificatio
             ->context(['comment' => $this->comment]);
 
         return $message;
+    }
+
+    public function getChannels(RecipientInterface $recipient): array
+    {
+        if (preg_match('{\b(great|awesome)\b}i', $this->comment->getText())) {
+            return ['email', 'chat/slack'];
+        }
+
+        $this->importance(Notification::IMPORTANCE_LOW);
+
+        return ['email'];
     }
 }
