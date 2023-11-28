@@ -3,6 +3,7 @@
 namespace App\Notification;
 
 use App\Entity\Comment;
+use Symfony\Component\Notifier\Bridge\Slack\Block\SlackActionsBlock;
 use Symfony\Component\Notifier\Bridge\Slack\Block\SlackDividerBlock;
 use Symfony\Component\Notifier\Bridge\Slack\Block\SlackSectionBlock;
 use Symfony\Component\Notifier\Bridge\Slack\SlackOptions;
@@ -18,6 +19,7 @@ class CommentReviewNotification extends Notification implements EmailNotificatio
 {
     public function __construct(
         private Comment $comment,
+        private string $reviewUrl,
     ) {
         parent::__construct('New comment posted');
     }
@@ -58,12 +60,19 @@ class CommentReviewNotification extends Notification implements EmailNotificatio
             ->block((new SlackSectionBlock())->text($this->getSubject()))
             ->block(new SlackDividerBlock())
             ->block((new SlackSectionBlock())
-            ->text(sprintf(
-                "%s (%s) says: %s",
-                $this->comment->getAuthor(),
-                $this->comment->getEmail(),
-                $this->comment->getText()
-            ))));
+                ->text(sprintf(
+                        "%s (%s) says: %s",
+                        $this->comment->getAuthor(),
+                        $this->comment->getEmail(),
+                        $this->comment->getText()
+                    )
+                )
+            )
+            ->block((new SlackActionsBlock())
+                ->button('Accept', $this->reviewUrl, 'primary')
+                ->button('Reject', $this->reviewUrl . '?reject=1', 'danger')
+            )
+        );
 
         return $message;
     }
