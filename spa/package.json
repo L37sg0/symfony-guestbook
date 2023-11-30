@@ -4,7 +4,8 @@
   "description": "Single page app following tutorial of Symfony book 6",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "encore dev"
   },
   "keywords": [],
   "author": "Petar Ivanov",
