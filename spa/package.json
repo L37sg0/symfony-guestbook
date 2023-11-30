@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "encore dev"
+    "dev": "encore dev",
+    "cordova": "cordova"
   },
   "keywords": [],
   "author": "Petar Ivanov",
@@ -16,6 +17,7 @@
     "@symfony/webpack-encore": "^4.5.0",
     "babel-preset-preact": "^2.0.0",
     "bootstrap": "^5.3.2",
+    "cordova": "^12.0.0",
     "html-webpack-plugin": "^5.5.3",
     "node-sass": "^9.0.0",
     "preact": "^10.19.2",

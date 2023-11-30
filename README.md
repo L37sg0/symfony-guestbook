@@ -103,6 +103,17 @@ curl -s -I -X PURGE -u admin:password http://localhost/admin/http-cache/conferen
 docker-compose exec -e API_ENDPOINT="http://symfony-guestbook.loc/" app npm run dev --prefix symfony-guestbook/spa/
 ```
 
+### create cordova app in spa and add android support for it
+```bash
+docker-compose exec app npm run cordova create app --prefix symfony-guestbook/spa/
+docker-compose exec app npm run cordova platform add android --prefix symfony-guestbook/spa/app
+# then run npm run dev to build and copy content of public to app/www
+rm -rf spa/app/www/
+mkdir -p spa/app/www
+cp -r spa/public/ spa/app/www/
+
+```
+
 ## Notes:
  - workflows should be probably used with some additional checks.
  - DO NOT forget to clean your cached views for the env you're working on when make changes on templates
