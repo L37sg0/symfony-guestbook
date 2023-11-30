@@ -32,7 +32,7 @@ function Comment({comments}) {
     );
 }
 
-export default function Conference({conferences}, slug) {
+export default function Conference({conferences, slug}) {
     const conference = conferences.find(conference => conference.slug === slug);
     const [comments, setComments] = useState(null);
 
