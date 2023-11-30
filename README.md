@@ -98,6 +98,11 @@ curl -s -I -X PURGE -u admin:password http://localhost/admin/http-cache/
 curl -s -I -X PURGE -u admin:password http://localhost/admin/http-cache/conference_header
 ```
 
+### sets API_ENDPOINT env var for the spa
+```bash
+docker-compose exec -e API_ENDPOINT="http://symfony-guestbook.loc/" app npm run dev --prefix symfony-guestbook/spa/
+```
+
 ## Notes:
  - workflows should be probably used with some additional checks.
  - DO NOT forget to clean your cached views for the env you're working on when make changes on templates
