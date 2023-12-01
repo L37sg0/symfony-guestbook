@@ -49,6 +49,26 @@
         <source>Welcome!</source>
         <target>Bienvenu !</target>
       </trans-unit>
+      <trans-unit id="LGsuJTw" resname="Your name">
+        <source>Your name</source>
+        <target>Votre nom</target>
+      </trans-unit>
+      <trans-unit id="cZiMTY4" resname="Text">
+        <source>Text</source>
+        <target>Texte</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="2E7rrak" resname="Photo">
+        <source>Photo</source>
+        <target>Photo</target>
+      </trans-unit>
+      <trans-unit id="FV_BbAQ" resname="Submit">
+        <source>Submit</source>
+        <target>Soumettre</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

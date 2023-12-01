@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
+use function Symfony\Component\Translation\t;
 
 class CommentType extends AbstractType
 {
@@ -17,18 +18,25 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('author', null, [
-                'label' => 'Your name',
+                'label' => t('Your name'),
             ])
-            ->add('text')
-            ->add('email', EmailType::class)
+            ->add('text', null, [
+                'label' => t('Text'),
+            ])
+            ->add('email', EmailType::class, [
+                'label' => t('Email'),
+            ])
             ->add('photo', FileType::class, [
                 'required'  => false,
                 'mapped'    => false,
                 'constraints'   => [
                     new Image(['maxSize' => '1024k'])
-                ]
+                ],
+                'label' => t('Photo')
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'label' => t('Submit'),
+            ])
         ;
     }
 
