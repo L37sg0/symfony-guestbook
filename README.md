@@ -119,6 +119,11 @@ cp -r spa/public/ spa/app/www/
 docker-compose exec app symfony-guestbook/bin/console translation:extract fr --force --domain=messages
 ```
 
+### for running the tests need to pass vars first:
+```bash
+docker-compose exec -e APP_ENV=test -e KERNEL_CLASS="App\Kernel" -e CORS_ALLOW_ORIGIN="^http?://(localhost|127\.0\.0\.1|spa\.symfony-guestbook\.loc)(:[0-9]+)?" app symfony-guestbook/vendor/bin/phpunit symfony-guestbook/tests/
+```
+
 ## Notes:
  - workflows should be probably used with some additional checks.
  - DO NOT forget to clean your cached views for the env you're working on when make changes on templates

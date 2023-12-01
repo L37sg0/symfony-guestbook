@@ -13,8 +13,8 @@ class ConferenceControllerTest extends PantherTestCase
         $client = static::createPantherClient([
             'external_base_url' => rtrim($_SERVER['SYMFONY_PROJECT_DEFAULT_ROUTE_URL'], '/')
         ]);
-        $client->request('GET', '/');
-        
+        $client->request('GET', '/en/');
+
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h2', 'Give your feedback');
     }
@@ -22,14 +22,14 @@ class ConferenceControllerTest extends PantherTestCase
     public function testCommentSubmission()
     {
         $client = static::createClient();
-        $client->request('GET', 'conference/amsterdam-2019');
+        $client->request('GET', '/en/conference/amsterdam-2019');
         $client->submitForm('Submit', [
             'comment_form[author]'  => 'Fabien',
             'comment_form[text]'    => 'Some feedback from an automated functional test',
             'comment_form[email]'   => $email = 'me@automated.ed',
             'comment_form[photo]'   => dirname(__DIR__, 2) . '/public/images/under-construction.gif'
         ]);
-        
+
         $this->assertResponseRedirects();
 
         // simulate comment validation
@@ -44,7 +44,7 @@ class ConferenceControllerTest extends PantherTestCase
     public function tetConferencePage()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/');
+        $crawler = $client->request('GET', '/en/');
 
         $this->assertCount(2, $crawler->filter('h4'));
 
@@ -53,6 +53,6 @@ class ConferenceControllerTest extends PantherTestCase
         $this->assertPageTitleContains('Amsterdam');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h2', 'Amsterdam 2019');
-        $this->assertSelectorExists('div:contains("There are 1 comments")');
+        $this->assertSelectorExists('div:contains("There is 1 comment")');
     }
 }
