@@ -114,6 +114,11 @@ cp -r spa/public/ spa/app/www/
 
 ```
 
+### extracts translation files in translations folder
+```bash
+docker-compose exec app symfony-guestbook/bin/console translation:extract fr --force --domain=messages
+```
+
 ## Notes:
  - workflows should be probably used with some additional checks.
  - DO NOT forget to clean your cached views for the env you're working on when make changes on templates
